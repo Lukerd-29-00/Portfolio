@@ -36,9 +36,9 @@ export function ProjectSection(props: ProjectSectionProps): JSX.Element{
         <Collapse in={open}>
             <Container>
                 {props.projects.map(p => {
-                    return <Row className="pb-2 pt-2">
+                    return <Row className="pb-2 pt-2" key={p.name}>
                         <Col>
-                            <ProjectCard key={p.name} {...p}/>
+                            <ProjectCard {...p}/>
                         </Col>
                     </Row>
                 })}

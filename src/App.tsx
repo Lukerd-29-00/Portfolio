@@ -45,10 +45,10 @@ function App() {
 
   return (
     <div className="app">
-      <h1>
+      <h1 className="header">
         Lucas Driscoll's Portfolio
       </h1>
-      <h2>
+      <h2 className="header">
         A collection of my past projects
       </h2>
       {
