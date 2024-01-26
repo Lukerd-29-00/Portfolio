@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col"
 import Collapse from "react-bootstrap/Collapse"
 import Button from "react-bootstrap/Button"
 import { useState } from "react"
-
+import "./ProjectSection.css"
 export interface ProjectSectionProps{
     name: string,
     description: string,
@@ -20,26 +20,30 @@ export function ProjectSection(props: ProjectSectionProps): JSX.Element{
             <Col>
                 {props.name}
             </Col>
-            <Col>
-                <Button onClick={() => {setOpen(!open)}}></Button>
+            <Col id="last">
+                <button className="dropdown-toggle btn btn-light" onClick={() => {setOpen(!open)}}></button>
 
             </Col>
         </Row>
         <Row>
-          <Collapse in={open}>
-            <div>{props.description}</div>
-          </Collapse>
+            <Col>
+                <Collapse in={open}>
+                    <div>{props.description}</div>
+                </Collapse>
+            </Col>
         </Row>
-        <Row>
-            <Collapse in={open}>
-                <div>
-                    {props.projects.map(p => {
-                        return <ProjectCard key={p.name} name={p.name} description={p.name} url={p.url} demo_url={p.demo_url} logo={p.logo}/>
-                    })}
-                </div>
-            </Collapse>
-        </Row>
-    </Container>
 
+        <Collapse in={open}>
+            <Container>
+                {props.projects.map(p => {
+                    return <Row className="pb-2 pt-2">
+                        <Col>
+                            <ProjectCard key={p.name} {...p}/>
+                        </Col>
+                    </Row>
+                })}
+            </Container>
+        </Collapse>
+    </Container>
     
 }
