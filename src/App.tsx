@@ -8,6 +8,11 @@ import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
 import Spinner from "react-bootstrap/Spinner"
 import Joi from "joi"
+
+interface KeyedProjectSectionProps extends ProjectSectionProps{
+  id: string
+}
+
 const schema = Joi.array<ProjectSectionProps[]>().items(Joi.object<ProjectSectionProps>({
   name: Joi.string().required(),
   description: Joi.string().required(),
@@ -22,7 +27,7 @@ const schema = Joi.array<ProjectSectionProps[]>().items(Joi.object<ProjectSectio
 
 function App() {
 
-  const [projects, setProjects] = useState<null|ProjectSectionProps[]>(null)
+  const [projects, setProjects] = useState<null|KeyedProjectSectionProps[]>(null)
 
   useEffect(() => {
     let setState = true
@@ -33,7 +38,13 @@ function App() {
           if(project.error){
             alert(project.error)
           }else{
-            setProjects(project.value)
+            const projects_list = project.value.map(proj => {
+              return {id: crypto.randomUUID(),
+                ...proj
+              }
+
+            })
+            setProjects(projects_list)
           }
         }
       })
@@ -57,7 +68,7 @@ function App() {
         :
         <Container>
           {projects.map((project) => {
-            return <Row className = "pb-3" key={project.name}>
+            return <Row className = "pb-3" key={project.id}>
               <Col>
                 <ProjectSection {...project}/>
               </Col>
