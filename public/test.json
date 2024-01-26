@@ -1,0 +1,13 @@
+[{
+  "name": "test",
+  "description": "local testing section",
+  "projects": [
+      {
+          "name": "Checkers",
+          "description": "A game of checkers",
+          "logo": "favicon.ico",
+          "demo_url": "https://lukerd-29-00.github.io/Checkers/"
+      }
+  ]
+}
+]
