@@ -3,10 +3,9 @@
   "description": "local testing section",
   "projects": [
       {
-          "name": "Checkers",
+          "name": "test",
           "description": "A game of checkers",
-          "logo": "favicon.ico",
-          "demo_url": "https://lukerd-29-00.github.io/Checkers/"
+          "demo_url": "http://localhost:5000"
       }
   ]
 }
