@@ -11,15 +11,26 @@ import Joi from "joi"
 
 interface KeyedProjectSectionProps extends ProjectSectionProps{
   id: string
+
+}
+
+interface RawProjectCardProps{
+  name: string,
+  description: string
+  url: string,
+  logo?: string,
+  demo_url?: string
+  date: Date
 }
 
 const schema = Joi.array<ProjectSectionProps[]>().items(Joi.object<ProjectSectionProps>({
   name: Joi.string().required(),
   description: Joi.string().required(),
-  projects: Joi.array<ProjectCardProps[]>().items(Joi.object<ProjectCardProps>({
+  projects: Joi.array<RawProjectCardProps[]>().items(Joi.object<RawProjectCardProps>({
     name: Joi.string().required(),
     description: Joi.string().required(),
     url: Joi.string().required(),
+    date: Joi.string().isoDate().required(),
     logo: Joi.string(),
     demo_url: Joi.string()
   }))
@@ -39,10 +50,13 @@ function App() {
             alert(project.error)
           }else{
             const projects_list = project.value.map(proj => {
-              return {id: crypto.randomUUID(),
-                ...proj
-              }
-
+              let output = {id: crypto.randomUUID(),...proj}
+              output.projects = output.projects.map(pr => {
+                let new_pr: any = {...pr}
+                new_pr.date = new Date(pr.date)
+                return new_pr
+              })
+              return output
             })
             setProjects(projects_list)
           }

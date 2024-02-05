@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Collapse from "react-bootstrap/Collapse"
 import Image from "react-bootstrap/Image"
-import { useState} from "react"
+import { useMemo, useState} from "react"
 import "./ProjectSection.css"
 
 interface KeyedProjectCardProps extends ProjectCardProps{
@@ -21,14 +21,18 @@ export interface ProjectSectionProps{
 
 export function ProjectSection(props: ProjectSectionProps): JSX.Element{
     const projects = useState<KeyedProjectCardProps[]>(() => {
-        return props.projects.map(proj => {
+        const p = props.projects.map(proj => {
             return {
                 id: crypto.randomUUID(),
                 ...proj
             }
         })
+        return p.sort((a, b) => {
+            return a < b ? -1 : 1
+        })
     })[0]
     const [open, setOpen] = useState<boolean>(false)
+
 
     return <Container className="border">
         <Row className="clickable" onClick={() => {setOpen(!open)}}>
