@@ -3,8 +3,8 @@ import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Collapse from "react-bootstrap/Collapse"
-import Button from "react-bootstrap/Button"
-import { useState, useMemo} from "react"
+import Image from "react-bootstrap/Image"
+import { useState} from "react"
 import "./ProjectSection.css"
 
 interface KeyedProjectCardProps extends ProjectCardProps{
@@ -31,13 +31,12 @@ export function ProjectSection(props: ProjectSectionProps): JSX.Element{
     const [open, setOpen] = useState<boolean>(false)
 
     return <Container className="border">
-        <Row>
+        <Row className="clickable" onClick={() => {setOpen(!open)}}>
             <Col>
                 {props.name}
             </Col>
             <Col id="last">
-                <button className="dropdown-toggle btn btn-light" onClick={() => {setOpen(!open)}}></button>
-
+                <Image style={{"maxHeight": "15px", "maxWidth": "15px"}} src="/arrow.png" className={open ? "horizontal rotating" : "horizontal"}/>
             </Col>
         </Row>
         <Row>
